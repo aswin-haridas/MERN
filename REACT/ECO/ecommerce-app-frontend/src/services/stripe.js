@@ -1,0 +1,5 @@
+const STRIPE_SECRET_KEY ="pk_test_51QhvWdG6MURsBmOTtsys8gHQRsi5zEh0VspJkpXAaAUqUrIxSuu5o1LhZSe1AdjZEAHQrzioqQZP8hEL0JioHfZQ00YTqgP2lV";
+
+
+
+export default STRIPE_SECRET_KEY;
