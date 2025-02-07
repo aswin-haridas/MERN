@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zametki.</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Z.</h1>
+    <div class="search">
+      <input class="search-box" id="search-input" placeholder="Search notes..." />
+    </div>
+  </header>
+  <button class="button" id="new-note-button">Create new note</button>
+
+  <div class="modal" id="new-note-modal">
+    <div class="note-form">
+      <div class="modal-buttons">
+        <img src="save.png" id="noteButton"  />
+        <img src="close-button.png" id="close-button" class="closemodalbutton" />
+      </div>
+      </button>
+      <input type="text" id="title" placeholder="Title" />
+      <textarea id="content" placeholder="Content"></textarea>
+    </div>
+  </div>
+
+  <div class="modal" id="edit-note-modal">
+    <div class="note-form">
+      <div class="modal-buttons">
+        <img src="save.png" id="saveButton" />
+        <img src="delete.png" id="delete-button"/>
+        <img src="close-button.png" id="close-button" class="closeeditmodalbutton" />
+      </div>
+      <input type="text" id="editTitle" placeholder="Title" class="input-title" />
+      <textarea id="editContent" placeholder="Content" class="textarea-content"></textarea>
+    </div>
+  </div>
+  <section class="notes-container" id="all-notes"></section>
+  <script src="script.js"></script>
+</body>
+
+</html>

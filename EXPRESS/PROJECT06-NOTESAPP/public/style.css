@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Pacifico&display=swap");
+
+:root {
+  --primary: #fffae6;
+  --secondary: #ff9f66;
+  --accent: #002379;
+  --textcolor: #021526;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: "IBM Plex Mono", monospace;
+  background-color: var(--primary);
+  color: var(--textcolor);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-right: 40%;
+}
+
+.search-box {
+  width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+}
+
+.button {
+  background-color: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+}
+.notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.note-div {
+  height: 100%;
+}
+
+.note {
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid var(--accent);
+  width: 250px;
+  height: 250px;
+}
+.note h2 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+}
+
+.note p {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  height: 70%;
+  word-wrap: break-word;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #999;
+}
+.modal {
+  display: none;
+  width: calc(100vw-16px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal .note-form {
+  width: 100%;
+}
+.modal input,
+textarea {
+  border: 1px solid black;
+  margin: 0;
+  padding: 8px 16px 0 8px;
+  width: calc(100% - 32px);
+  margin-bottom: 8px;
+}
+.modal input{
+  height: 50px;
+}
+.modal textarea {
+  height: calc(70vh - 8px);
+  resize: none;
+}
+
+.modal img {
+  height: 20px;
+  width: 20px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.modal .modal-buttons{
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+

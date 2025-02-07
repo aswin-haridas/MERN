@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCapsule</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+    :root {
+        --main-font: 'Courier New', Courier, monospace;
+        --main-bg-color: #fff;
+        --primary-color: #000;
+        --secondary-color: bisque;
+        --input-padding: 10px;
+        --input-margin: 10px 0;
+        --font-size-large: 30px;
+        --font-size-medium: 16px
+    }
+
+    * {
+        font-family: var(--main-font)
+    }
+
+    body {
+        padding: 20px
+    }
+
+    header {
+        font-size: var(--font-size-large);
+        font-weight: 700
+    }
+
+    .post-form {
+        margin-bottom: 20px
+    }
+
+    .post-form input,
+    .post-form textarea {
+        font-weight: 700;
+        display: block;
+        width: 100%;
+        margin: var(--input-margin);
+        padding: var(--input-padding);
+        font-size: var(--font-size-medium)
+    }
+
+    .post-form button {
+        background: var(--primary-color);
+        color: var(--main-bg-color);
+        padding: var(--input-padding) var(--input-padding * 2);
+        font-size: var(--font-size-medium);
+        cursor: pointer
+    }
+
+    .posts {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px
+    }
+
+    .post {
+        border: 1px solid #ddd;
+        padding: 20px
+    }
+
+    .post img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover
+    }
+
+    .heading {
+        display: flex;
+        justify-content: center;
+        font-size: var(--font-size-large)
+    }
+
+    .divider {
+        background-color: var(--secondary-color);
+        padding: 10px 0
+    }
+
+    .divider p {
+        margin: 0
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, .5);
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px
+    }
+
+    body.modal-open {
+        filter: blur(5px);
+        overflow: hidden
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: 700
+    }
+
+    .close:focus,
+    .close:hover {
+        color: #000;
+        cursor: pointer
+    }
+    .modal{
+        display: none;
+    }
+</style>
+
+<body>
+
+    <header>
+        <h1>SpaceCapsule</h1>
+    </header>
+
+    <section class="post-form">
+        <h2>Create a New Blog Post</h2>
+        <input type="text" id="title" placeholder="Title">
+        <input type="text" id="imgUrl" placeholder="Image URL">
+        <textarea id="content" placeholder="Content"></textarea>
+        <button id="postButton">Post</button>
+    </section>
+
+    <div class="divider">
+        <p class="heading">All Blogs</p>
+    </div>
+
+    <section class="posts" id="all-posts"></section>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&cross;</span>
+            <h2>Edit Blog</h2>
+            <input type="text" id="editTitle" placeholder="Title">
+            <input type="text" id="editImgUrl" placeholder="Image URL">
+            <textarea id="editContent" placeholder="Content"></textarea>
+            <button id="saveButton">Save Changes</button>
+        </div>
+    </div>
+
+    <script>
+        const apiEndpoint = 'http://localhost:5000/api/blogs'; // Centralize API URL
+
+        // Fetch and display blogs
+        async function fetchBlogs() {
+            try {
+                const response = await fetch(apiEndpoint);
+                const blogs = await response.json();
+                displayBlogs(blogs);
+            } catch (error) {
+                console.error('Error fetching blogs:', error);
+            }
+        }
+
+        // Display blog posts
+        function displayBlogs(blogs) {
+            const blogContainer = document.getElementById('all-posts');
+            blogContainer.innerHTML = ''; // Clear previous posts
+
+            blogs.forEach(blog => {
+                createPostElement(blog);
+            });
+        }
+
+        // Create a single blog post element
+        function createPostElement(blog) {
+            const blogDiv = document.createElement('div');
+            blogDiv.classList.add('post');
+            blogDiv.innerHTML = `
+                <h2>${blog.title}</h2>
+                <img src="${blog.imgUrl}" alt="${blog.title}">
+                <p>${blog.content}</p>
+                <button class="editbutton" onclick="openEditModal('${blog._id}', '${blog.title}', '${blog.content}', '${blog.imgUrl}')">Edit</button>
+                <button class="deletebutton" onclick="deletePost('${blog._id}')">Delete</button>
+            `;
+            document.getElementById('all-posts').appendChild(blogDiv);
+        }
+
+        // Add a new blog post
+        async function addPost(e) {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const imgUrl = document.getElementById('imgUrl').value;
+            const content = document.getElementById('content').value;
+
+            try {
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, imgUrl, content })
+                });
+
+                if (response.ok) {
+                    const newBlog = await response.json();
+                    createPostElement(newBlog);
+                    resetForm(); // Reset form after successful submission
+                    fetchBlogs(); // Refresh the blog list
+                } else {
+                    console.error('Failed to add post');
+                }
+            } catch (error) {
+                console.error('Error adding post:', error);
+            }
+        }
+
+        // Reset form fields
+        function resetForm() {
+            document.getElementById('title').value = '';
+            document.getElementById('imgUrl').value = '';
+            document.getElementById('content').value = '';
+        }
+
+        function openEditModal(id, title, content, imgUrl) {
+            let currentEditId = id;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editContent').value = content;
+            document.getElementById('editImgUrl').value = imgUrl;
+            document.getElementById('editModal').style.display = 'block';
+
+            document.getElementById('saveButton').onclick = (e) => updatePost(e, currentEditId);
+
+
+        }
+
+        async function editPost(id) {
+            try {
+                const response = await fetch(`${apiEndpoint}/${id}`);
+                const blog = await response.json();
+                openEditModal(id, blog.title, blog.content, blog.imgUrl);
+
+                const saveButton = document.getElementById('saveButton');
+                saveButton.onclick = (e) => updatePost(e, id);
+            } catch (error) {
+                console.error('Error editing post:', error);
+            }
+        }
+
+        async function updatePost(e, id) {
+            e.preventDefault();
+            const title = document.getElementById('editTitle').value;
+            const imgUrl = document.getElementById('editImgUrl').value;
+            const content = document.getElementById('editContent').value;
+
+            try {
+                const response = await fetch(`${apiEndpoint}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, imgUrl, content })
+                });
+
+                if (response.ok) {
+
+                    document.getElementById('editModal').style.display = 'none';
+                    fetchBlogs();
+                } else {
+                    console.error('Failed to update blog');
+                }
+            } catch (error) {
+                console.error('Error updating post:', error);
+            }
+        }
+
+        // Delete blog post
+        async function deletePost(id) {
+            try {
+                const response = await fetch(`${apiEndpoint}/${id}`, { method: 'DELETE' });
+                if (response.ok) {
+                    fetchBlogs();
+                } else {
+                    console.error('Failed to delete blog');
+                }
+            } catch (error) {
+                console.error('Error deleting post:', error);
+            }
+        }
+
+        // Close the modal
+        const closeModal = document.querySelector('.close');
+        closeModal.addEventListener('click', () => {
+            document.getElementById('editModal').style.display = 'none';
+        });
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            const postButton = document.getElementById('postButton');
+            postButton.addEventListener('click', debounce(addPost, 300));
+            fetchBlogs();
+        });
+
+        // Debounce function to prevent rapid button clicks
+        function debounce(func, delay) {
+            let timeoutId;
+            return function (...args) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+    </script>
+
+</body>
+
+</html>

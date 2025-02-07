@@ -1,0 +1,149 @@
+/* Updated Login.css for consistent input box sizes */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Urbanist';
+  background-image: url('https://wallpapershome.com/images/pages/pic_h/3430.jpg');
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff6b;
+  width: 800px;
+  height: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.form-box {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333333;
+  text-align: center;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%; 
+  max-width: 400px; 
+}
+.input-box input {
+  width: 100%;
+  height: 48px; 
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-box input:focus {
+  border-color: #6c63ff;
+  background-color: #f8f9ff;
+}
+
+.input-box .icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #6c63ff;
+  font-size: 18px;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #666666;
+  width: 100%;
+  max-width: 400px; /* Match the input field width */
+}
+
+.remember-forgot label {
+  display: flex;
+  align-items: center;
+}
+
+.remember-forgot label input {
+  margin-right: 5px;
+}
+
+.remember-forgot a {
+  color: #2d2d2d;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+button {
+  width: 100%;
+  max-width: 400px; /* Match the input field width */
+  padding: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #6c63ff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #5544cc;
+}
+
+.register-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #666666;
+}
+
+.register-link a {
+  color: #303030;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Right-side gradient */
+.wrapper::after {
+  content: '';
+  width: 50%;
+  height: 100%;
+  background-image: url('https://images.pexels.com/photos/450441/pexels-photo-450441.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover;
+  background-position: center;
+  display: block;
+}
