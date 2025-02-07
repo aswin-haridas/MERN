@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signup-container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="signup-container">
+    <h1>Sign Up</h1>
+    <form action="index.html">
+      <input type="text" name="name" placeholder="Full Name" required pattern="[A-Za-z\s]+"
+        title="Name should contain only letters and spaces">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required minlength="8"
+        title="Password must be at least 8 characters long">
+      <input type="tel" name="phone" placeholder="Phone Number" required pattern="\d{10}"
+        title="Phone number must be 10 digits">
+      <input type="date" name="dob" required title="Please enter your date of birth">
+      <button type="submit">Create Account</button><br><br>
+      <a href="index.html">cancel</a>
+    </form>
+  </div>
+</body>
+
+</html>

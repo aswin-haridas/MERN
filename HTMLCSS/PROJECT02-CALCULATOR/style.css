@@ -1,0 +1,134 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Squada+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #8FBFB6;
+    font-family: "Squada One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    user-select: none;
+}
+
+.calculator {
+    width: 280px;
+    height: 500px;
+    background-color: #F2E3D0;
+    border-radius: 30px;
+    border: #592E1E solid 8px;
+    display: flex;
+    flex-direction: column;
+}
+.top{
+    background-color: #D9483B;
+    border-radius: 22px 22px 0 0;
+    height: 200px;
+    padding: 15px;
+}
+.logo{
+    font-family: "Pacifico", cursive;
+    color: #F2E3D0;
+    font-weight: 500;
+    font-style: normal;
+    margin:0 0 12px 0;
+    font-size: 1.2rem;
+}
+.display {
+    border: none;
+    width: 100%;
+    height: 60%;
+    border-radius: 12px;
+    background-color: #592E1E;
+    color: #F2E3D0;
+    font-size: 2.5rem;
+    text-align: end;
+}
+
+.keypad{
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    height: 300px;
+}
+img{
+    width: 35px;
+    filter: invert(97%) sepia(4%) saturate(1656%) hue-rotate(320deg) brightness(98%) contrast(94%);
+}
+
+.button{
+    background-color: #8FBFB6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #F2E3D0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.button.clear{
+    background-color: #D9483B;
+}
+
+.button.plus{
+    grid-row: span 2;
+    background-color: #D9483B;
+
+}
+
+.button.fun{
+    background-color: #592E1E;
+}
+
+.fan{
+    width: 35px;
+    height: 35px;
+    transition: transform 2s ease-out;
+    animation: none;
+}
+
+.cross:hover {
+    animation: reverse-spin 2s ease-in-out forwards;
+    transition: transform 0.3s ease-in-out;
+}
+
+@keyframes reverse-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-90deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(2160deg); }
+}
+<<<<<<< HEAD:PROJECTS/PROJECT01-CALCULATOR/style.css
+
+video{
+    position: absolute;
+    z-index: 3;
+    width: 125%;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fan.spin {
+    animation: spin 1s linear infinite;
+}
+=======
+>>>>>>> parent of 61d59c3 (c):PROJECT01-JS/style.css
